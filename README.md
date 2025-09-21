@@ -108,7 +108,7 @@ Requirement 5 — Handle contradictions
 
 We implement a lightweight GraphRAG:
 
-Extraction: For each top-N chunk, we LLM-extract claims = [{"key","val","sent"}] in JSON-only format;
+Extraction: For each top-N chunk, we LLM-extract claims = [{"key","val","sent"}] in JSON-only format, i.e param.batch_size=32 or param.timeout=30s ;
 
 Key clustering: open_canon.cluster_keys merges synonym keys (e.g., retention_days, artifact retention, retain artifacts) without an allowlist;
 
@@ -117,7 +117,7 @@ Edges: Evidence → Claim (supports, weight = evidence_weight(meta, base_score))
 Decision: consensus = supports - λ * supports(opposing claims); print top claims per key with support & contradict evidence.
 
 This flags batch_size 32 vs 64, concurrency 2 vs 1, artifact_retention_days 30 vs 60, etc., and shows where each side comes from.
-```json
+```text
 Key: param.batch_size
   - claim: param.batch_size=32  consensus=1.0841
       support: forums:data/forums/t008#qa  w=0.566
@@ -153,7 +153,7 @@ Hits@1: The top retrievel hits the first relevant id
 Recall@5: The top 5 retrievel hits the relevant_ids 
 
 Evaluation Result
-```json
+```text
 === Quick Eval (Hits@1 / Recall@5) ===
   A_base_k20 | topk=20 | rerank=N | Hits@1=0.60 | R@5=0.80
   A_base_k30 | topk=30 | rerank=N | Hits@1=0.60 | R@5=0.80
