@@ -126,3 +126,25 @@ Each query appends a line to logs/responses.txt:
 chunks=docs:data/docs/retries.md#c0:0.301 | blogs:data/blogs/post_09.md#c0:0.287 \
 flags={rerank:True, graph:True, per_source_topk:30}
 ```
+Evaluation
+Ground Truth
+For example(Limited size due to lack of time)
+```json
+{"q": "what is recommended batch size for CPU-only inference?", "relevant_ids": ["data/docs/tuning.md#c0","data/forums/t001#qa"]}
+{"q": "What is artifact retention policy?", "relevant_ids": ["data/docs/storage_and_artifacts.md#c0","data/blogs/post_20.md#c0","data/forums/t005#qa"]}
+{"q": "what is the default storage quota per project?", "relevant_ids": ["data/docs/quotas.md#c0","data/forums/t006#qa"]}
+{"q": "what retries and timeouts policy should I use?", "relevant_ids": ["data/docs/retries_and_timeouts.md#c0","data/docs/retries.md#c0","data/forums/t014#qa","data/blogs/post_09.md#c0"]}
+{"q": "what is early stopping patience for training?", "relevant_ids": ["data/forums/t002#qa","data/blogs/post_04.md#c0"]}
+```
+Metrics:
+Hits@1: The top retrievel hits the first relevant id
+Recall@5: The top 5 retrievel hits the relevant_ids 
+
+Evaluation Result
+```json
+=== Quick Eval (Hits@1 / Recall@5) ===
+  A_base_k20 | topk=20 | rerank=N | Hits@1=0.60 | R@5=0.80
+  A_base_k30 | topk=30 | rerank=N | Hits@1=0.60 | R@5=0.80
+B_ce_k20_t12 | topk=20 | rerank=Y | Hits@1=0.60 | R@5=1.00
+B_ce_k30_t12 | topk=30 | rerank=Y | Hits@1=0.60 | R@5=1.00
+```
