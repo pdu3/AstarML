@@ -1,0 +1,55 @@
+---
+title: "Job Schedules (v2.1)"
+last_updated: "2025-06-21"
+owner: "AstraML Docs"
+---
+# Overview
+All endpoints follow standard HTTP semantics; 4xx indicates client issues, 5xx indicates server-side failures. When migrating from v1.x, verify scheduler, patience, and batch size to align with v2.1 defaults. Security-sensitive fields should be passed via project-scoped secrets rather than inline literals. The examples below illustrate recommended values for common workloads. Defaults can be overridden in the request body or via project-level policies. Metrics are aggregated in 30-second windows by default and support downsampling for long retention.
+
+## Request Schema
+Use explicit versioning to avoid unexpected behavior during rolling upgrades. Metrics are aggregated in 30-second windows by default and support downsampling for long retention. The API guarantees eventual consistency for metrics and near real-time visibility for logs. This section describes the behavior under different failure modes and how clients should react. When migrating from v1.x, verify scheduler, patience, and batch size to align with v2.1 defaults.
+
+```json
+{
+  "project_id": "p-demo",
+  "dataset": "s3://bucket/dataset",
+  "model": "bert-base",
+  "hyperparams": {
+    "batch_size": 32,
+    "lr": 3e-5,
+    "epochs": 5,
+    "early_stopping": {"patience": 5}
+  },
+  "resources": {"gpus": 1}
+}
+```
+
+## Usage Examples
+Metrics are aggregated in 30-second windows by default and support downsampling for long retention. We recommend using idempotency keys for retriable operations to prevent duplicate work. The API guarantees eventual consistency for metrics and near real-time visibility for logs. This section describes the behavior under different failure modes and how clients should react. Security-sensitive fields should be passed via project-scoped secrets rather than inline literals.
+
+```bash
+astraml submit --project p-demo --model bert-base --gpus 1           --dataset s3://bucket/dataset --batch-size 32 --epochs 5 --lr 3e-5
+```
+
+## Defaults & Notes
+- batch_size: 32
+- lr: 3e-5
+- epochs: 5
+- early_stopping.patience: 5
+- lr_scheduler: cosine
+- gradient_accumulation_steps: 1
+
+Use explicit versioning to avoid unexpected behavior during rolling upgrades. The API guarantees eventual consistency for metrics and near real-time visibility for logs. All endpoints follow standard HTTP semantics; 4xx indicates client issues, 5xx indicates server-side failures. Defaults can be overridden in the request body or via project-level policies. When migrating from v1.x, verify scheduler, patience, and batch size to align with v2.1 defaults.
+
+## Troubleshooting
+When migrating from v1.x, verify scheduler, patience, and batch size to align with v2.1 defaults. The API guarantees eventual consistency for metrics and near real-time visibility for logs. The examples below illustrate recommended values for common workloads. Use explicit versioning to avoid unexpected behavior during rolling upgrades. Security-sensitive fields should be passed via project-scoped secrets rather than inline literals. We recommend using idempotency keys for retriable operations to prevent duplicate work.
+
+```yaml
+schedule:
+  cron: "0 * * * *"
+resources:
+  gpus: 1
+hyperparams:
+  lr_scheduler: cosine
+  gradient_accumulation_steps: 1
+```
