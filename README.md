@@ -21,6 +21,7 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 # if you’ll use OpenAI:
 export OPENAI_API_KEY=sk-xxxxx
+```
 1) Prepare data → chunks
 ```kotlin
 project_root/
@@ -28,12 +29,14 @@ project_root/
     docs/*.md
     forums/*.md
     blogs/*.md
+```
 2) Query (fusion only)
 ```bash
 python main.py fusion \
   --chunks artifacts/chunks.jsonl \
   --q "how should I tune batch size and retries for AstraML on CPU-only setups?" \
   --per-source-topk 30 \
+```
 3) Add reranking (+GraphRAG)
 ```bash
 python main.py fusion \
@@ -42,7 +45,7 @@ python main.py fusion \
   --per-source-topk 30 \
   --rerank --rerank-topn 12 \
   --graph --graph-topn 12 \
-
+```
 Flags you’ll care about
 
 --per-source-topk: how many candidates per source feed into fusion (RRF).
