@@ -126,7 +126,8 @@ Each query appends a line to logs/responses.txt:
 chunks=docs:data/docs/retries.md#c0:0.301 | blogs:data/blogs/post_09.md#c0:0.287 \
 flags={rerank:True, graph:True, per_source_topk:30}
 ```
-Evaluation
+Evaluation (Performance analysis of your retrieval and reranking strategies) 
+
 Ground Truth
 For example(Limited size due to lack of time)
 ```json
