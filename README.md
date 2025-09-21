@@ -56,3 +56,29 @@ Flags you’ll care about
 
 --log-txt: append a one-line structured log per query (sources, scores, flags).
 
+Report
+Requirement 1 — Create/source three data types
+
+We used data/docs, data/forums, data/blogs.
+
+Docs: long-form technical docs (MD)
+
+Forums: short Q/A or troubleshooting threads (MD)
+
+Blogs: narrative posts and tips (MD)
+
+Chunking strategy
+
+Docs: semantic-aware sliding window; larger chunks (~1200–1800 chars), small overlap (~150) to keep context.
+
+Forums: per-post or per-accepted-answer with light normalization; chunk size smaller (~600–900 chars), overlap ≈ 0。
+
+Blogs: paragraph-based with title carry-over; chunk size（~900–1200 chars），overlap 100。
+All chunks include metadata: source, id (path#chunk_idx), created_at (if available).
+
+Requirement 2 — Implement chunking per source
+
+Implemented in src/pipelines/chunk_runner.py. It outputs a single chunks.jsonl, each row:
+```json
+{"text": "...", "metadata": {"source":"docs","id":"data/docs/retries.md#c0","created_at":"2024-05-01"}}
+```
