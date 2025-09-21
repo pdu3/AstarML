@@ -117,6 +117,17 @@ Edges: Evidence → Claim (supports, weight = evidence_weight(meta, base_score))
 Decision: consensus = supports - λ * supports(opposing claims); print top claims per key with support & contradict evidence.
 
 This flags batch_size 32 vs 64, concurrency 2 vs 1, artifact_retention_days 30 vs 60, etc., and shows where each side comes from.
+```json
+Key: param.batch_size
+  - claim: param.batch_size=32  consensus=1.0841
+      support: forums:data/forums/t008#qa  w=0.566
+      support: docs:data/docs/inference_api.md#c0  w=0.365
+      contradict: forums:data/forums/t018#a0181  w=0.221  via claim::param.batch_size=64
+  - claim: param.batch_size=64  consensus=-0.2197
+      support: forums:data/forums/t018#a0181  w=0.221
+      support: forums:data/forums/t010#a0101  w=0.220
+      contradict: forums:data/forums/t008#qa  w=0.566  via claim::param.batch_size=32
+```
 
 Requirement 6 — Logging
 
