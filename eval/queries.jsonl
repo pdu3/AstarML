@@ -1,0 +1,5 @@
+{"q": "what is recommended batch size for CPU-only inference?", "relevant_ids": ["data/docs/tuning.md#c0","data/forums/t001#qa"]}
+{"q": "What is artifact retention policy?", "relevant_ids": ["data/docs/storage_and_artifacts.md#c0","data/blogs/post_20.md#c0","data/forums/t005#qa"]}
+{"q": "what is the default storage quota per project?", "relevant_ids": ["data/docs/quotas.md#c0","data/forums/t006#qa"]}
+{"q": "what retries and timeouts policy should I use?", "relevant_ids": ["data/docs/retries_and_timeouts.md#c0","data/docs/retries.md#c0","data/forums/t014#qa","data/blogs/post_09.md#c0"]}
+{"q": "what is early stopping patience for training?", "relevant_ids": ["data/forums/t002#qa","data/blogs/post_04.md#c0"]}
